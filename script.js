@@ -1,5 +1,5 @@
 // Dummy user ID for testing purposes
-const user_id = "test-user"; 
+const userID = "test-user"; 
 
 // Menu items with details like name, price, description, and image
 const menu = {
