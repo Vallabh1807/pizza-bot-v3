@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Pizza Outlet Menu</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showMenu('pizza')">Pizza</a></li>
+                <li><a href="#" onclick="showMenu('drinks')">Drinks</a></li>
+                <li><a href="#" onclick="showMenu('others')">Others</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="menu-container">
+        <!-- Menu Items will be dynamically inserted here -->
+    </section>
+
+    <section id="order-summary">
+        <h2>Your Order</h2>
+        <ul id="order-list"></ul>
+        <p>Total: ₹<span id="total-price">0</span></p>
+        <label for="notes">Add a note:</label>
+        <textarea id="notes" placeholder="Special instructions..."></textarea>
+        <button id="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

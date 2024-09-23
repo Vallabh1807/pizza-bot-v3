@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    background-color: #e74c3c;
+    padding: 1em;
+    color: white;
+}
+
+header h1 {
+    margin-bottom: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+#menu-container {
+    margin: 2em;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 700px;
+    margin: auto;
+}
+
+.menu-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.menu-details {
+    text-align: left;
+    margin-left: 1em;
+    flex-grow: 1;
+}
+
+.menu-item h3 {
+    margin-bottom: 0.5em;
+}
+
+.menu-item p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.menu-item button {
+    padding: 0.5em;
+    background-color: #27ae60; /* Green Add Button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0.5em
+}
+
+#order-summary {
+    margin: 2em;
+}
+
+#order-list {
+    list-style-type: none;
+    margin-bottom: 1em;
+}
+
+#order-list li{
+    margin-top: 0.5rem;
+}
+
+#total-price {
+    font-weight: bold;
+}
+
+#confirm-btn {
+    padding: 0.7em 2em;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#notes {
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+/* Pizza Size Dropdown */
+.select-size {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-right: 1em;
+}
+
+.menu-item button {
+    padding: 0.5em;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.5em 1em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 0.9em;
+    }
+
+    .menu-item img {
+        width: 80px;
+        height: 80px;
+    }
+}
