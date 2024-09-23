@@ -1,3 +1,7 @@
+// Dummy user ID for testing purposes
+const user_id = "test-user"; 
+
+// Menu items with details like name, price, description, and image
 const menu = {
     pizza: [
         { name: "Margherita", basePrice: 200, description: "Classic cheese pizza with fresh tomatoes and basil.", image: "./images/pizzaMargarita.jpg" },
@@ -18,16 +22,16 @@ const menu = {
 let order = {};
 let totalPrice = 0;
 
-// Display menu based on category
+// Display the menu for the selected category (e.g., pizza, drinks, others)
 function showMenu(category) {
     const menuContainer = document.getElementById('menu-container');
-    menuContainer.innerHTML = ''; // Clear previous items
+    menuContainer.innerHTML = ''; // Clear previous menu items
 
     menu[category].forEach(item => {
         const menuItem = document.createElement('div');
         menuItem.classList.add('menu-item');
         
-        // For Pizza, show size selection
+        // Display size selection only for pizza items
         if (category === 'pizza') {
             menuItem.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
@@ -44,7 +48,7 @@ function showMenu(category) {
                 </div>
             `;
         } else {
-            // For Drinks and Others, no size selection
+            // No size selection for drinks and other items
             menuItem.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
                 <div class="menu-details">
@@ -59,11 +63,11 @@ function showMenu(category) {
     });
 }
 
-// Add item to order or increase quantity if it already exists
+// Add selected item to the order
 function addItemToOrder(name, basePrice) {
     let price = basePrice;
 
-    // Only for pizzas, check for size selection
+    // If it's a pizza, check for the selected size
     if (menu.pizza.some(item => item.name === name)) {
         const sizeMultiplier = document.getElementById(`${name}-size`).value;
         if (!sizeMultiplier || sizeMultiplier === "0") {
@@ -73,10 +77,12 @@ function addItemToOrder(name, basePrice) {
         price = basePrice * sizeMultiplier;
     }
 
+    // Update the order if the item already exists
     if (order[name]) {
         order[name].quantity += 1;
         order[name].totalPrice += price;
     } else {
+        // Add new item to the order
         order[name] = {
             quantity: 1,
             price: price,
@@ -86,13 +92,14 @@ function addItemToOrder(name, basePrice) {
     updateOrderSummary();
 }
 
-// Update order summary with quantity and total price for each item
+// Update the order summary on the screen
 function updateOrderSummary() {
     const orderList = document.getElementById('order-list');
     const totalPriceElement = document.getElementById('total-price');
     orderList.innerHTML = ''; // Clear previous order list
     totalPrice = 0; // Reset total price
 
+    // Display each item in the order
     for (const [name, details] of Object.entries(order)) {
         const listItem = document.createElement('li');
         listItem.innerHTML = `${name} x ${details.quantity} = ₹${details.totalPrice}
@@ -101,6 +108,7 @@ function updateOrderSummary() {
         totalPrice += details.totalPrice;
     }
 
+    // Update the total price
     totalPriceElement.textContent = totalPrice;
 }
 
@@ -110,8 +118,7 @@ function removeItemFromOrder(name) {
     updateOrderSummary();
 }
 
-// Confirm order and send back to WhatsApp bot
-// Confirm order and send back to Voiceflow bot
+// Confirm order and send data back to Voiceflow bot
 function confirmOrder() {
     const note = document.getElementById('notes').value;
     let orderDetails = {
@@ -120,6 +127,7 @@ function confirmOrder() {
         note: note
     };
     
+    // Add each item in the order to the orderDetails object
     for (const [name, details] of Object.entries(order)) {
         orderDetails.items.push({
             name: name,
@@ -128,14 +136,13 @@ function confirmOrder() {
         });
     }
 
-    // Send order details back to Voiceflow bot
-    const voiceflowReturnUrl = `https://api.voiceflow.com/runtime/66efc26f425398f11ccf9d46/interact?user_id=test_user_12345`; // Replace with actual user_id during testing
-
+    // Send the order details back to the Voiceflow bot
+    const voiceflowReturnUrl = `https://api.voiceflow.com/runtime/66efc26f425398f11ccf9d46/interact?user_id=${user_id}`;
     fetch(voiceflowReturnUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.aSjIKUevqaBw0Qvp'
+            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.aSjIKUevqaBw0Qvp' // Ensure the full token is used
         },
         body: JSON.stringify({
             type: 'order',
@@ -145,12 +152,10 @@ function confirmOrder() {
     .then(response => {
         if (response.ok) {
             alert('Order sent to bot!');
-            window.location.href = 'https://creator.voiceflow.com/project/66efc26f425398f11ccf9d46/canvas/64dbb6696a8fab0013dba194';  // Redirect to the bot's link
+            // Redirect to the Voiceflow bot link after sending the order
+            window.location.href = 'https://creator.voiceflow.com/project/66efc26f425398f11ccf9d46/canvas/64dbb6696a8fab0013dba194'; 
         } else {
             alert('Error placing order.');
         }
     });
 }
-
-
-
