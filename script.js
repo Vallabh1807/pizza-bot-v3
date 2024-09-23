@@ -137,12 +137,12 @@ function confirmOrder() {
     }
 
     // Send the order details back to the Voiceflow bot
-    const voiceflowReturnUrl = `https://api.voiceflow.com/runtime/66efc26f425398f11ccf9d46/interact?user_id=${user_id}`;
+    const voiceflowReturnUrl = `https://general-runtime.voiceflow.com/state/user/{userID}/interact';
     fetch(voiceflowReturnUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.aSjIKUevqaBw0Qvp' // Ensure the full token is used
+            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.Q6IQXLb2Tzi2k5ck' // Ensure the full token is used
         },
         body: JSON.stringify({
             type: 'order',
