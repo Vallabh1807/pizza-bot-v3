@@ -1,5 +1,4 @@
 // Dummy user ID for testing purposes
-const userID = "test-user"; 
 
 // Menu items with details like name, price, description, and image
 const menu = {
@@ -119,6 +118,7 @@ function removeItemFromOrder(name) {
 }
 
 // Confirm order and send data back to Voiceflow bot
+// Function to confirm order and send it back to the Voiceflow bot
 function confirmOrder() {
     const note = document.getElementById('notes').value;
     let orderDetails = {
@@ -126,8 +126,8 @@ function confirmOrder() {
         total: totalPrice,
         note: note
     };
-    
-    // Add each item in the order to the orderDetails object
+
+    // Collect order details
     for (const [name, details] of Object.entries(order)) {
         orderDetails.items.push({
             name: name,
@@ -136,13 +136,15 @@ function confirmOrder() {
         });
     }
 
-    // Send the order details back to the Voiceflow bot
-    const voiceflowReturnUrl = `https://general-runtime.voiceflow.com/state/user/{userID}/interact';
+    // Define the Voiceflow API endpoint and the user_id
+    const voiceflowReturnUrl = `https://api.voiceflow.com/runtime/66efc26f425398f11ccf9d46/interact?user_id=TEST_USER`; // Replace with dynamic user_id
+
+    // Send the order data to Voiceflow
     fetch(voiceflowReturnUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.Q6IQXLb2Tzi2k5ck' // Ensure the full token is used
+            'Authorization': 'Bearer VF.DM.66f09d078d9312ecde1d7217.aSjIKUevqaBw0Qvp' // Replace with your token
         },
         body: JSON.stringify({
             type: 'order',
@@ -151,11 +153,12 @@ function confirmOrder() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Order sent to bot!');
-            // Redirect to the Voiceflow bot link after sending the order
-            window.location.href = 'https://creator.voiceflow.com/project/66efc26f425398f11ccf9d46/canvas/64dbb6696a8fab0013dba194'; 
+            alert('Order sent to the bot!');
+            // Redirect back to the Voiceflow bot if needed
+            window.location.href = 'https://creator.voiceflow.com/project/66efc26f425398f11ccf9d46/canvas/64dbb6696a8fab0013dba194';
         } else {
             alert('Error placing order.');
         }
-    });
+    })
+    .catch(error => console.error('Error:', error));
 }
